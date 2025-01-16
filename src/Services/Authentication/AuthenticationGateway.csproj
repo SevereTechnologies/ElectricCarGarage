@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>291f705f-e486-47d7-b645-27babe52524b</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..</DockerfileContext>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Application\EventHandlers\" />
+    <Folder Include="Application\Features\" />
+    <Folder Include="Domain\Aggregates\" />
+    <Folder Include="Domain\Events\" />
+    <Folder Include="Domain\Models\" />
+    <Folder Include="Infrastructure\Configuration\" />
+    <Folder Include="Infrastructure\Data\" />
+    <Folder Include="Infrastructure\Messaging\" />
+    <Folder Include="Presentation\Controllers\" />
+    <Folder Include="Presentation\Grpc\" />
+    <Folder Include="Tests\Application.Tests\" />
+    <Folder Include="Tests\Domain.Tests\" />
+    <Folder Include="Tests\Infrastructure.Tests\" />
+    <Folder Include="Tests\Presentation.Tests\" />
+  </ItemGroup>
+
+</Project>

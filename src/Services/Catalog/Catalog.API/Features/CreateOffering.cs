@@ -1,6 +1,4 @@
-﻿
-
-namespace Catalog.API.Features;
+﻿namespace Catalog.API.Features;
 
 public record CreateOfferingCommand(
     string Name,
@@ -57,10 +55,9 @@ public class CreateOfferingEndpoint : ICarterModule
 
                 return Results.Created($"/offerings/{response.Id}", response);
             })
-        .WithName(" CreateOffering")
+        .WithName("CreateOffering")
         .Produces<CreateOfferingResponse>(StatusCodes.Status201Created)
         .ProducesProblem(StatusCodes.Status400BadRequest)
-        .WithSummary("Create Offering")
-        .WithDescription("Create Offering");
+        .WithSummary("Create Offering");
     }
 }

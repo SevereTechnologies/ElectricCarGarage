@@ -1,0 +1,13 @@
+services:
+  customergateway:
+    image: ${DOCKER_REGISTRY-}customergateway
+    build:
+      context: .
+      dockerfile: src/Services/Customer/Dockerfile
+
+  customerdb:
+    image: postgres
+
+volumes:
+  postgres_customer:
+

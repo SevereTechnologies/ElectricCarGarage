@@ -2,12 +2,11 @@ Intro
 - Electric garage is an Electric Vehicle management application for EVs of all types.
 	-repairs
 		- Curb Rash
-		- Leak Valves
-		- 
+		- Leaked Valves
 	-paint
 		- Panel
 		- Full Car
-	-maintained
+	-Maintenance
 		- tire rotation
 		- Cooling system
 		- Cabin air filter replacement

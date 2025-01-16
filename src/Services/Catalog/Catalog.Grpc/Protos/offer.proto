@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+option csharp_namespace = "Catalog.Grpc";
+
+package offer;
+
+// The Offering service definition.
+service Offering {
+	rpc GetOfferings (GetOfferingsRequest) returns (GetOfferingsReply);
+	rpc GetOfferingById (GetOfferingByIdRequest) returns (GetOfferingByIdReply);
+	rpc CreateOffering (CreateOfferingRequest) returns (CreateOfferingReply);
+	rpc UpdateOffering (UpdateOfferingRequest) returns (UpdateOfferingReply);
+	rpc DeleteOffering (DeleteOfferingRequest) returns (DeleteOfferingReply);
+}
+
+// The model to pass as request for create and update. Same model used to return single and list
+message OfferingModel {
+	string id = 1;
+	string name = 2;
+	float price = 3;
+	repeated string Categories = 4;
+	bool Active = 5;
+	string description = 6;
+}
+
+// The request message containing the OfferingModel to be created.
+message CreateOfferingRequest {
+	OfferingModel offering = 1;
+}
+// The reply message containing the id if sucessful.
+message CreateOfferingReply {
+	string id = 1;
+}
+
+// The request message containing the OfferingModel to be created.
+message UpdateOfferingRequest {
+	OfferingModel offering = 1;
+}
+// The reply message containing the id if sucessful.
+message UpdateOfferingReply {
+	string id = 1;
+}
+
+// The request message containing the OfferingModel to be deleted.
+message DeleteOfferingRequest {
+	string id = 1;
+}
+// The reply message containing the id if sucessful.
+message DeleteOfferingReply {
+	string Success = 1;
+}
+
+// The request message to return all offerings
+message GetOfferingsRequest {
+}
+// return list Offerings
+message GetOfferingsReply {
+	repeated OfferingModel offerings = 1;
+}
+
+// The request to get single offering
+message GetOfferingByIdRequest {
+	string id = 1;
+}
+// Return single offering by id
+message GetOfferingByIdReply {
+	OfferingModel offering = 1;
+}
