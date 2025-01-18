@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-
-namespace CustomerGateway.Application.Features;
+﻿namespace CustomerGateway.Application.Features;
 
 public record UpdateCustomerCommand(
     Guid Id,
@@ -57,25 +55,5 @@ internal class UpdateCustomerHandler(IDocumentSession session) : ICommandHandler
 
         // return result
         return new UpdateCustomerResponse(true, "Updated!");
-    }
-}
-
-public class UpdateCustomerEndpoint : ICarterModule
-{
-    public void AddRoutes(IEndpointRouteBuilder app)
-    {
-        app.MapPut("/customers",
-            async (UpdateCustomerCommand command, ISender sender) =>
-            {
-                var response = await sender.Send(command);
-
-                return Results.Ok(response);
-            })
-            .WithName("UpdateCustomer WithName")
-            .Produces<UpdateCustomerResponse>(StatusCodes.Status200OK)
-            .ProducesProblem(StatusCodes.Status400BadRequest)
-            .ProducesProblem(StatusCodes.Status404NotFound)
-            .WithSummary("Update Customer WithSummary")
-            .WithDescription("Update Customer WithDescription");
     }
 }

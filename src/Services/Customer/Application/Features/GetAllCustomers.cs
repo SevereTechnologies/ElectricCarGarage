@@ -17,19 +17,4 @@ internal class GetAllCustomersHandler(IDocumentSession session, ILogger<GetAllCu
     }
 }
 
-public class GetAllCustomersEndpoint : ICarterModule
-{
-    public void AddRoutes(IEndpointRouteBuilder app)
-    {
-        app.MapGet("/customers", async (ISender sender) =>
-        {
-            var response = await sender.Send(new GetAllCustomersQuery());
 
-            return Results.Ok(response);
-        })
-        .WithName("GetAllCustomers")
-        .Produces<GetAllCustomersResponse>(StatusCodes.Status200OK)
-        .ProducesProblem(StatusCodes.Status400BadRequest)
-        .WithSummary("Get Customers");
-    }
-}

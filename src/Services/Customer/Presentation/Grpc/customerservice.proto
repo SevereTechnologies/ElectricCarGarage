@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+option csharp_namespace = "CustomerGateway.Presentation.Grpc";
+
+// The Customer service definition.
+service CustomerGrpcService {
+	rpc CreateCustomer (CreateCustomerRequest) returns (CreateCustomerReply);
+	rpc UpdateCustomer (UpdateCustomerRequest) returns (UpdateCustomerReply);
+	rpc GetAllCustomers (GetAllCustomersRequest) returns (GetAllCustomersReply);
+	rpc GetCustomerById (GetCustomerByIdRequest) returns (GetCustomerByIdReply);
+}
+
+// The model to pass as request for create and update. Same model used to return single and list
+message Customer {
+	string id = 1;
+	string name = 2;
+	string Phone = 3;
+	string Email = 4;
+	string Address = 5;
+	string City = 6;
+	string State = 7;
+	string Zip = 8;
+	string Note = 9;
+	string createdon = 10;
+	string updatedon = 11;
+}
+
+// The request message containing the Customer to be created.
+message CreateCustomerRequest {
+	Customer customer = 1;
+}
+// The reply message containing the id if sucessful.
+message CreateCustomerReply {
+	string id = 1;
+	string message = 2;
+}
+
+// The request message containing the Customer to be created.
+message UpdateCustomerRequest {
+	Customer customer = 1;
+}
+// The reply message containing the id if sucessful.
+message UpdateCustomerReply {
+	string message = 1;
+}
+
+// The request message to return all customers
+message GetAllCustomersRequest {
+}
+// return list Customers
+message GetAllCustomersReply {
+	repeated Customer customers = 1;
+	string message = 2;
+}
+
+// The request to get single customer
+message GetCustomerByIdRequest {
+	string id = 1;
+}
+// Return single customer by id
+message GetCustomerByIdReply {
+	Customer customer = 1;
+	string message = 2;
+}

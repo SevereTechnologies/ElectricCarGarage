@@ -51,21 +51,3 @@ internal class CreateCustomerHandler(IDocumentSession session) : ICommandHandler
         return new CreateCustomerResponse(customer.Id);
     }
 }
-
-public class CreateCustomerEndpoint : ICarterModule
-{
-    public void AddRoutes(IEndpointRouteBuilder app)
-    {
-        app.MapPost("/customers",
-            async (CreateCustomerCommand command, ISender sender) =>
-            {
-                var response = await sender.Send(command);
-
-                return Results.Created($"/customers/{response.Id}", response);
-            })
-        .WithName("CreateCustomer")
-        .Produces<CreateCustomerResponse>(StatusCodes.Status201Created)
-        .ProducesProblem(StatusCodes.Status400BadRequest)
-        .WithSummary("Create Customer");
-    }
-}

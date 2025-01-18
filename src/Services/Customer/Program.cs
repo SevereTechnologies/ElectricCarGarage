@@ -1,3 +1,5 @@
+using CustomerGateway.Presentation.Grpc;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container ===========================================================
@@ -17,9 +19,11 @@ builder.Services.AddMarten(opts =>
     opts.Connection(builder.Configuration.GetConnectionString("Database")!);
 }).UseLightweightSessions();
 
+builder.Services.AddGrpc();
 
 var app = builder.Build();
 
+app.MapGrpcService<CustomerService>(); // .RequireHost("*:5052");
 
 // Configure the HTTP Request pipeline ======================================================
 app.MapCarter(); //scan all code for ICarterModule implemention and map required http methods

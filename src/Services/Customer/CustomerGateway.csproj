@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -12,12 +12,13 @@
 
   <ItemGroup>
     <PackageReference Include="Carter" Version="8.2.1" />
+    <PackageReference Include="Grpc.AspNetCore.HealthChecks" Version="2.67.0" />
     <PackageReference Include="Marten" Version="7.36.0" />
 	<PackageReference Include="Grpc.AspNetCore" Version="2.67.0" />
 	<PackageReference Include="Grpc.Tools" Version="2.69.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
   </ItemGroup>
-
+	
   <ItemGroup>
     <Folder Include="Application\EventHandlers\" />
     <Folder Include="Domain\Events\" />
@@ -26,8 +27,6 @@
     <Folder Include="Infrastructure\Messaging\" />
     <Folder Include="Infrastructure\Configuration\" />
     <Folder Include="Shared\" />
-    <Folder Include="Presentation\Controllers\" />
-    <Folder Include="Presentation\Grpc\" />
     <Folder Include="Tests\Application.Tests\" />
     <Folder Include="Tests\Domain.Tests\" />
     <Folder Include="Tests\Infrastructure.Tests\" />
@@ -36,6 +35,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\ApplicationBlocks\ApplicationBlocks\ApplicationBlocks.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Presentation\Grpc\customerservice.proto" GrpcServices="Server" />
   </ItemGroup>
 
 </Project>

@@ -12,10 +12,10 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Services/Offering/OfferingGateway/OfferingGateway.csproj", "Services/Offering/OfferingGateway/"]
-RUN dotnet restore "./Services/Offering/OfferingGateway/OfferingGateway.csproj"
+COPY ["src/Services/Offering/OfferingGateway.csproj", "src/Services/Offering/"]
+RUN dotnet restore "./src/Services/Offering/OfferingGateway.csproj"
 COPY . .
-WORKDIR "/src/Services/Offering/OfferingGateway"
+WORKDIR "/src/src/Services/Offering"
 RUN dotnet build "./OfferingGateway.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage

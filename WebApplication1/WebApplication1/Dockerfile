@@ -12,20 +12,19 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/Services/Customer/CustomerGateway.csproj", "src/Services/Customer/"]
-COPY ["src/ApplicationBlocks/ApplicationBlocks/ApplicationBlocks.csproj", "src/ApplicationBlocks/ApplicationBlocks/"]
-RUN dotnet restore "./src/Services/Customer/CustomerGateway.csproj"
+COPY ["WebApplication1/WebApplication1.csproj", "WebApplication1/"]
+RUN dotnet restore "./WebApplication1/WebApplication1.csproj"
 COPY . .
-WORKDIR "/src/src/Services/Customer"
-RUN dotnet build "./CustomerGateway.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/WebApplication1"
+RUN dotnet build "./WebApplication1.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./CustomerGateway.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./WebApplication1.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "CustomerGateway.dll"]
+ENTRYPOINT ["dotnet", "WebApplication1.dll"]
