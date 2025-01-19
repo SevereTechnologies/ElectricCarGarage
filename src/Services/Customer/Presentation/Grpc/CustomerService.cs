@@ -1,4 +1,5 @@
 ﻿using Grpc.Core;
+using Mapster;
 
 namespace CustomerGateway.Presentation.Grpc;
 
@@ -77,6 +78,13 @@ public class CustomerService(IMediator mediator) : CustomerGrpcService.CustomerG
 
     public override async Task<CreateCustomerReply> CreateCustomer(CreateCustomerRequest request, ServerCallContext context)
     {
+        // var customer = request.Customer.Adapt<Customer>();
+
+        if (request is null || request.Customer is null)
+        {
+            throw new RpcException(new Status(StatusCode.InvalidArgument, "Invalid request."));
+        }
+
         // Map proto model to command model
         var command = new CreateCustomerCommand(
             request.Customer.Name,
@@ -96,12 +104,15 @@ public class CustomerService(IMediator mediator) : CustomerGrpcService.CustomerG
             Id = result.Id.ToString(),
             Message = StatusCode.OK.ToString()
         };
-
-        //throw new RpcException(new Status(StatusCode.InvalidArgument, "Invalid Request"));
     }
 
     public override async Task<UpdateCustomerReply> UpdateCustomer(UpdateCustomerRequest request, ServerCallContext context)
     {
+        if (request is null || request.Customer is null)
+        {
+            throw new RpcException(new Status(StatusCode.InvalidArgument, "Invalid request."));
+        }
+
         var command = new UpdateCustomerCommand(
             Guid.Parse(request.Customer.Id),
             request.Customer.Name,
@@ -120,7 +131,5 @@ public class CustomerService(IMediator mediator) : CustomerGrpcService.CustomerG
         {
             Message = StatusCode.OK.ToString()
         };
-
-        // throw new RpcException(new Status(StatusCode.InvalidArgument, "Invalid Request"));
     }
 }
