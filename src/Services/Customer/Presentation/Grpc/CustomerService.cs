@@ -1,5 +1,4 @@
 ﻿using Grpc.Core;
-using Mapster;
 
 namespace CustomerGateway.Presentation.Grpc;
 

@@ -1,0 +1,10 @@
+﻿global using Carter;
+global using MediatR;
+global using Marten;
+global using FluentValidation;
+global using DiscountGateway.Domain.Entities;
+global using DiscountGateway.Shared.DTOs;
+global using DiscountGateway.Application.Features;
+global using ApplicationBlocks.CQRS;
+global using ApplicationBlocks.Behaviors;
+global using ApplicationBlocks.Exceptions;

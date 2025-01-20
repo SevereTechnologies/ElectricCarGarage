@@ -12,20 +12,19 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/Services/Discount/DiscountGateway.csproj", "src/Services/Discount/"]
-COPY ["src/ApplicationBlocks/ApplicationBlocks/ApplicationBlocks.csproj", "src/ApplicationBlocks/ApplicationBlocks/"]
-RUN dotnet restore "./src/Services/Discount/DiscountGateway.csproj"
+COPY ["ApiGateways/YarpGateway/YarpGateway.csproj", "ApiGateways/YarpGateway/"]
+RUN dotnet restore "./ApiGateways/YarpGateway/YarpGateway.csproj"
 COPY . .
-WORKDIR "/src/src/Services/Discount"
-RUN dotnet build "./DiscountGateway.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/ApiGateways/YarpGateway"
+RUN dotnet build "./YarpGateway.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./DiscountGateway.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./YarpGateway.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "DiscountGateway.dll"]
+ENTRYPOINT ["dotnet", "YarpGateway.dll"]

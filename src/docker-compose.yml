@@ -8,7 +8,18 @@ services:
   customerdb:
     image: postgres
 
+  discountgateway:
+    image: ${DOCKER_REGISTRY-}discountgateway
+    build:
+      context: ..
+      dockerfile: src/Services/Discount/Dockerfile
+
+  discountdb:
+    image: postgres
+
 volumes:
   postgres_customer:
+  postgres_discount:
+
 
 

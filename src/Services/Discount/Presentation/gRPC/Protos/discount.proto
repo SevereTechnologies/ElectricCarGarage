@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+option csharp_namespace = "DiscountGateway.Presentation.gRPC.Protos";
+
+service DiscountService {
+	rpc CreateDiscount (CreateDiscountRequest) returns (CreateDiscountReply);
+	rpc DeleteDiscount (DeleteDiscountRequest) returns (DeleteDiscountReply);
+	rpc GetAllDiscounts (GetAllDiscountsRequest) returns (GetAllDiscountsReply);
+	rpc GetDiscountById (GetDiscountByIdRequest) returns (GetDiscountByIdReply);
+}
+
+// The model to pass as request for create and update. Same model used to return single and list
+message Coupon {
+	string id = 1;
+	string name = 2;
+	string description = 3;
+	int32  amount = 4;
+	string expirationdate = 5;
+}
+
+// The request message containing the Discount to be created.
+message CreateDiscountRequest {
+	Coupon coupon = 1;
+}
+// The reply message containing the id if sucessful.
+message CreateDiscountReply {
+	string id = 1;
+	string message = 2;
+}
+
+// The request message containing the Discount to be deleted.
+message DeleteDiscountRequest {
+	string id = 1;
+}
+// The reply message containing the id if sucessful.
+message DeleteDiscountReply {
+	string message = 1;
+}
+
+// The request message to return all discounts
+message GetAllDiscountsRequest {
+}
+// return list Discounts
+message GetAllDiscountsReply {
+	repeated Coupon coupons = 1;
+	string message = 2;
+}
+
+// The request to get single discount
+message GetDiscountByIdRequest {
+	string id = 1;
+}
+// Return single discount by id
+message GetDiscountByIdReply {
+	Coupon coupon = 1;
+	string message = 2;
+}

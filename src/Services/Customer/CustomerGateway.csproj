@@ -21,8 +21,6 @@
 	
   <ItemGroup>
     <Folder Include="Application\EventHandlers\" />
-    <Folder Include="Domain\Events\" />
-    <Folder Include="Domain\Aggregates\" />
     <Folder Include="Infrastructure\Data\" />
     <Folder Include="Infrastructure\Messaging\" />
     <Folder Include="Infrastructure\Configuration\" />
