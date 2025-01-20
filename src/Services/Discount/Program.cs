@@ -1,3 +1,5 @@
+using ProtoService = DiscountGateway.Presentation.gRPC.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container ===========================================================
@@ -21,7 +23,7 @@ builder.Services.AddGrpc();
 
 var app = builder.Build();
 
-// app.MapGrpcService<DiscountService>(); 
+app.MapGrpcService<ProtoService.DiscountGrpcService>();
 
 // Configure the HTTP Request pipeline ======================================================
 app.MapCarter(); //scan all code for ICarterModule implemention and map required http methods
