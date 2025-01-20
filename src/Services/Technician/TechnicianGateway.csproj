@@ -9,16 +9,16 @@
     <DockerfileContext>..\..\..</DockerfileContext>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Carter" Version="8.2.1" />
+		<PackageReference Include="Grpc.AspNetCore.HealthChecks" Version="2.67.0" />
+		<PackageReference Include="Marten" Version="7.36.0" />
+		<PackageReference Include="Grpc.AspNetCore" Version="2.67.0" />
+		<PackageReference Include="Grpc.Tools" Version="2.69.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+	</ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\EventHandlers\" />
-    <Folder Include="Application\Features\" />
-    <Folder Include="Domain\Aggregates\" />
-    <Folder Include="Domain\Events\" />
-    <Folder Include="Domain\Models\" />
     <Folder Include="Infrastructure\Configuration\" />
     <Folder Include="Infrastructure\Data\" />
     <Folder Include="Infrastructure\Messaging\" />
@@ -28,6 +28,10 @@
     <Folder Include="Tests\Domain.Tests\" />
     <Folder Include="Tests\Infrastructure.Tests\" />
     <Folder Include="Tests\Presentation.Tests\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\ApplicationBlocks\ApplicationBlocks\ApplicationBlocks.csproj" />
   </ItemGroup>
 
 </Project>

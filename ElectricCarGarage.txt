@@ -1,11 +1,11 @@
 Intro
 - Electric garage is an Electric Vehicle management application for EVs of all types.
 	-repairs
-		- Curb Rash
-		- Leaked Valves
+		- Curb Rash Repair
+		- Leaked Valves Repair
 	-paint
-		- Panel
-		- Full Car
+		- Panel Paint
+		- Full Car Paint
 	-Maintenance
 		- tire rotation
 		- Cooling system
@@ -35,8 +35,8 @@ Services that make up the solution:
 - Discount
 - WorkOrder
 - Authentication
-- Email
-- SAGA Orchastration
+- Notification (Email)
+- SAGA Orchestration
 - Yarp API Gateway
 
 Databases that make up the solution:
