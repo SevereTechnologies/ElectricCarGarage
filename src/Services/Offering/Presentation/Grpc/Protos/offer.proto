@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+option csharp_namespace = "OfferingGateway.Presentation.Grpc.Protos";
+
+// The Offer service definition.
+service OfferProtocService {
+	rpc CreateOffer (CreateOfferRequest) returns (CreateOfferReply);
+	rpc UpdateOffer (UpdateOfferRequest) returns (UpdateOfferReply);
+	rpc GetAllOffers (GetAllOffersRequest) returns (GetAllOffersReply);
+	rpc GetOfferById (GetOfferByIdRequest) returns (GetOfferByIdReply);
+}
+
+// The model to pass as request for create and update. Same model used to return single and list
+message OfferProtoModel {
+	string id = 1;
+	string service_name = 2;
+	repeated string category = 3;
+	string description = 4;
+	float price = 5;
+	bool active = 6;
+}
+
+// The request message containing the Offer to be created.
+message CreateOfferRequest {
+	OfferProtoModel offer = 1;
+}
+// The reply message containing the id if sucessful.
+message CreateOfferReply {
+	string id = 1;
+	string message = 2;
+}
+
+// The request message containing the Offer to be created.
+message UpdateOfferRequest {
+	OfferProtoModel offer = 1;
+}
+// The reply message containing the id if sucessful.
+message UpdateOfferReply {
+	string message = 1;
+}
+
+// The request message to return all offers
+message GetAllOffersRequest {
+}
+// return list Offers
+message GetAllOffersReply {
+	repeated OfferProtoModel offers = 1;
+	string message = 2;
+}
+
+// The request to get single offer
+message GetOfferByIdRequest {
+	string id = 1;
+}
+// Return single offer by id
+message GetOfferByIdReply {
+	OfferProtoModel offer = 1;
+	string message = 2;
+}

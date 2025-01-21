@@ -1,5 +1,4 @@
-using Carter;
-using Marten;
+using OfferingGateway.Presentation.Grpc.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +23,7 @@ builder.Services.AddGrpc();
 
 var app = builder.Build();
 
-//app.MapGrpcService<ProtoService.DiscountGrpcService>();
+app.MapGrpcService<OfferService>();
 
 // Configure the HTTP Request pipeline ======================================================
 app.MapCarter(); //scan all code for ICarterModule implemention and map required http methods

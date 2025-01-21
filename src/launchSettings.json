@@ -5,7 +5,9 @@
       "commandVersion": "1.0",
       "serviceActions": {
         "customergateway": "StartDebugging",
-        "discountgateway": "StartDebugging"
+        "discountgateway": "StartDebugging",
+        "offeringgateway": "StartDebugging",
+        "techniciangateway": "StartDebugging"
       }
     }
   }

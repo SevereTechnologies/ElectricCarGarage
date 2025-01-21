@@ -5,21 +5,43 @@ services:
       context: ..
       dockerfile: src/Services/Customer/Dockerfile
 
-  customerdb:
-    image: postgres
-
   discountgateway:
     image: ${DOCKER_REGISTRY-}discountgateway
     build:
       context: ..
       dockerfile: src/Services/Discount/Dockerfile
 
+  offeringgateway:
+    image: ${DOCKER_REGISTRY-}offeringgateway
+    build:
+      context: ..
+      dockerfile: src/Services/Offering/Dockerfile
+
+  techniciangateway:
+    image: ${DOCKER_REGISTRY-}techniciangateway
+    build:
+      context: ..
+      dockerfile: src/Services/Technician/Dockerfile
+
+  customerdb:
+    image: postgres
+
   discountdb:
+    image: postgres
+
+  offeringdb:
+    image: postgres
+
+  techniciandb:
     image: postgres
 
 volumes:
   postgres_customer:
   postgres_discount:
+  postgres_offering:
+  postgres_technician:
+
+
 
 
 

@@ -13,6 +13,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/Services/Offering/OfferingGateway.csproj", "src/Services/Offering/"]
+COPY ["src/ApplicationBlocks/ApplicationBlocks/ApplicationBlocks.csproj", "src/ApplicationBlocks/ApplicationBlocks/"]
 RUN dotnet restore "./src/Services/Offering/OfferingGateway.csproj"
 COPY . .
 WORKDIR "/src/src/Services/Offering"

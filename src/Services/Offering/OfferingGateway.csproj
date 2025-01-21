@@ -10,6 +10,10 @@
     <DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Presentation\Grpc\Protos\offer.proto" />
+  </ItemGroup>
+
 	<ItemGroup>
 		<PackageReference Include="Carter" Version="8.2.1" />
 		<PackageReference Include="Grpc.AspNetCore.HealthChecks" Version="2.67.0" />
@@ -23,10 +27,6 @@
     <Folder Include="Infrastructure\Configuration\" />
     <Folder Include="Infrastructure\Data\" />
     <Folder Include="Infrastructure\Messaging\" />
-    <Folder Include="Presentation\API\Controllers\" />
-    <Folder Include="Presentation\API\" />
-    <Folder Include="Presentation\Grpc\Services\" />
-    <Folder Include="Presentation\Grpc\Protos\" />
     <Folder Include="Tests\Application.Tests\" />
     <Folder Include="Tests\Domain.Tests\" />
     <Folder Include="Tests\Infrastructure.Tests\" />
@@ -35,6 +35,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\ApplicationBlocks\ApplicationBlocks\ApplicationBlocks.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Presentation\Grpc\Protos\offer.proto" GrpcServices="Server" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -7,7 +7,12 @@
     <UserSecretsId>2dc09025-47d6-480b-a273-3fb0defadc12</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
+    <DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Presentation\Grpc\Protos\technician.proto" />
+  </ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Carter" Version="8.2.1" />
@@ -22,8 +27,6 @@
     <Folder Include="Infrastructure\Configuration\" />
     <Folder Include="Infrastructure\Data\" />
     <Folder Include="Infrastructure\Messaging\" />
-    <Folder Include="Presentation\Controllers\" />
-    <Folder Include="Presentation\Grpc\" />
     <Folder Include="Tests\Application.Tests\" />
     <Folder Include="Tests\Domain.Tests\" />
     <Folder Include="Tests\Infrastructure.Tests\" />
@@ -32,6 +35,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\ApplicationBlocks\ApplicationBlocks\ApplicationBlocks.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Presentation\Grpc\Protos\technician.proto" GrpcServices="Server" />
   </ItemGroup>
 
 </Project>
