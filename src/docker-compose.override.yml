@@ -39,6 +39,8 @@ services:
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
       - ConnectionStrings__Database=Server=offeringdb;Port=5432;Database=OfferingDB;User Id=postgres;Password=postgres;Include Error Detail=true
+    depends_on:
+      - offeringdb
     ports:
       - "5004:8080"
       - "5054:8081"
@@ -54,11 +56,32 @@ services:
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
       - ConnectionStrings__Database=Server=techniciandb;Port=5432;Database=TechnicianDB;User Id=postgres;Password=postgres;Include Error Detail=true
+    depends_on:
+      - techniciandb
     ports:
       - "5008:8080"
       - "5058:8081"
       - "5009:8080"
       - "5059:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  bookinggateway:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__Database=Server=bookingdb;Port=5432;Database=BookingDB;User Id=postgres;Password=postgres;Include Error Detail=true
+      - ConnectionStrings__Redis=distributedcache:6379
+      - GrpcSettings__DiscountUrl=https://discount.grpc:8081
+    depends_on:
+      - bookingdb
+      - distributedcache
+      - discountgateway
+    ports:
+      - "5100:8080"
+      - "5150:8081"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
@@ -73,7 +96,7 @@ services:
     ports:
         - "5432-5432"
     volumes:
-      - postgres_customer:/var/lib/postgresql/data/ # where the customer db will reside on disk 
+      - postgres_customer:/var/lib/postgresql/data/ # where the db will reside on disk 
 
   discountdb:
     container_name: discountdb
@@ -85,7 +108,7 @@ services:
     ports:
         - "5432-5432"
     volumes:
-      - postgres_discount:/var/lib/postgresql/data/ # where the discount db will reside on disk
+      - postgres_discount:/var/lib/postgresql/data/ # where the db will reside on disk
 
   offeringdb:
     container_name: offeringdb
@@ -97,7 +120,7 @@ services:
     ports:
         - "5432-5432"
     volumes:
-      - postgres_offering:/var/lib/postgresql/data/ # where the discount db will reside on disk
+      - postgres_offering:/var/lib/postgresql/data/ # where the db will reside on disk
 
   techniciandb:
     container_name: techniciandb
@@ -109,4 +132,23 @@ services:
     ports:
         - "5432-5432"
     volumes:
-      - postgres_technician:/var/lib/postgresql/data/ # where the discount db will reside on disk
+      - postgres_technician:/var/lib/postgresql/data/ # where the db will reside on disk
+
+  bookingdb:
+    container_name: bookingdb
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=TechnicianDB
+    restart: always
+    ports:
+        - "5432-5432"
+    volumes:
+      - postgres_booking:/var/lib/postgresql/data/ # where the db will reside on disk
+
+  distributedcache:
+    container_name: distributedcache
+    restart: always
+    ports:
+      - "6379:6379"
+

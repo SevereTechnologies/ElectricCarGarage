@@ -23,6 +23,12 @@ services:
       context: ..
       dockerfile: src/Services/Technician/Dockerfile
 
+  bookinggateway:
+    image: ${DOCKER_REGISTRY-}bookinggateway
+    build:
+      context: ..
+      dockerfile: src/Services/Booking/Dockerfile
+
   customerdb:
     image: postgres
 
@@ -35,11 +41,19 @@ services:
   techniciandb:
     image: postgres
 
+  bookingdb:
+    image: postgres
+
+  distributedcache:
+    image: redis
+
 volumes:
   postgres_customer:
   postgres_discount:
   postgres_offering:
   postgres_technician:
+  postgres_booking:
+
 
 
 

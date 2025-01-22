@@ -58,20 +58,53 @@ Components/Libraries that make up the solution:
 - Docker
 -
 
+- API PERFORMANCE Improvement
+	- Paging
+	- Async Await
+	- Caching (Redis, Memcache)
+	- Connection Pooling (Database)
+	- Load Balancing
+	- CDN
+	
+
 Big Picture
 Client(Web,Mobile,desktop)
 	-> API Gateway(Yarp API)
 		-> Customer Service
-			-> Database(PostgreSQL)
+			-> Database:
+				- PostgreSQL
+			-> Function:
+				- manages all customers in the system (insert, update, list, single)
+				- does not make direct calls any other services.
 		-> Technician Service
-			-> Database(PostgreSQL)
-		-> Catalog Service
-			-> Database(PostgreSQL)
-			-> Database(Redis)
-			-> RabitMQ
+			-> Database
+				- PostgreSQL
+				- Database(Redis) for cache-aside pattern.
+			-> Events:
+				- None
+			-> Function:
+				- manages all technicians
+				- does not make direct calls any other services.
+		-> Offering Service
+			-> Database:
+				- PostgreSQL
+				- Redis for cache-aside pattern.
+				- RabitMQ
+			-> Function:
+				- manages all services provided by EVGarage
+				- does not make direct calls any other services.
+			-> Events:
+				- None
 		-> Payment Service
-			-> Database(SQLServer)
-			-> RabitMQ
+			-> Database:
+				- SQL Server
+				- RabitMQ
+			-> Function:
+				- Manages Order payments
+				- Requires Customer, Technician, Offering and Discount services to create order.
+				- Emits events when order is created, cancelled, errored
+			-> Events:
+				- created, cancelled, errored
 		-> Discount Service
 			-> Database(PostgreSQL)
 		-> WorkOrder Service
@@ -80,5 +113,32 @@ Client(Web,Mobile,desktop)
 		-> Authentication Service
 			-> Database(SQLServer)
 		-> Email Service
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
