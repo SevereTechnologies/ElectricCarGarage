@@ -1,6 +1,7 @@
 ﻿using BookingGateway.Domain.Entities;
 using BookingGateway.Infrastructure.Repositories;
 using DiscountGateway.Presentation.gRPC.Protos;
+using Marten.Linq.Parsing;
 
 namespace BookingGateway.Application.Features;
 
@@ -50,6 +51,8 @@ internal class CreateBookingHandler(IBookingRepository repository, DiscountServi
         {
             // OfferId is the same as CouponId
             var discount = await discountGrpc.GetDiscountByIdAsync(new GetDiscountByIdRequest { Id = service.OfferId.ToString() }, cancellationToken: cancellationToken);
+            service.Original = service.Amount;
+            service.Discount = discount.Coupon.Amount;
             service.Amount -= discount.Coupon.Amount;
         }
     }
