@@ -1,7 +1,10 @@
 using ApplicationBlocks.Behaviors;
+using ApplicationBlocks.Exceptions;
 using BookingGateway.Domain.Entities;
 using BookingGateway.Infrastructure.Repositories;
 using DiscountGateway.Presentation.gRPC.Protos;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,9 +49,28 @@ builder.Services.AddGrpcClient<DiscountService.DiscountServiceClient>(options =>
     return handler;
 });
 
+////Async Communication Services
+//builder.Services.AddMessageBroker(builder.Configuration);
 
-var app = builder.Build();
+////Cross-Cutting Services
+//builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 
-app.MapGet("/", () => "Hello World!");
+//builder.Services.AddHealthChecks()
+//    .AddNpgSql(builder.Configuration.GetConnectionString("Database")!)
+//    .AddRedis(builder.Configuration.GetConnectionString("Redis")!);
 
+
+var app = builder.Build(); // Above are Registration, Below are Usage
+
+
+// Configure the HTTP request pipeline.
+app.MapCarter();
+//app.UseExceptionHandler(options => { });
+//app.UseHealthChecks("/health",
+//    new HealthCheckOptions
+//    {
+//        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+//    });
+
+// Start the Application
 app.Run();

@@ -74,7 +74,7 @@ services:
       - ASPNETCORE_HTTPS_PORTS=8081
       - ConnectionStrings__Database=Server=bookingdb;Port=5432;Database=BookingDB;User Id=postgres;Password=postgres;Include Error Detail=true
       - ConnectionStrings__Redis=distributedcache:6379
-      - GrpcSettings__DiscountUrl=https://discount.grpc:8081
+      - GrpcSettings__DiscountUrl=https://discountgateway:8081
     depends_on:
       - bookingdb
       - distributedcache
@@ -139,7 +139,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=TechnicianDB
+      - POSTGRES_DB=BookingDB
     restart: always
     ports:
         - "5432-5432"

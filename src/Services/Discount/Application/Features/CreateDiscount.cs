@@ -1,6 +1,7 @@
 ﻿namespace DiscountGateway.Application.Features;
 
 public record CreateDiscountCommand(
+    Guid Id,
     string Name,
     string Description,
     int Amount) : ICommand<CreateDiscountResponse>;
@@ -11,6 +12,7 @@ public class CreateDiscountValidator : AbstractValidator<CreateDiscountCommand>
 {
     public CreateDiscountValidator()
     {
+        RuleFor(x => x.Id).NotEmpty().WithMessage("Id is required, it's the OfferId");
         RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required");
         RuleFor(x => x.Amount).GreaterThan(0).WithMessage("Amount is required");
     }
@@ -22,7 +24,7 @@ internal class CreateDiscountHandler(IDocumentSession session) : ICommandHandler
     {
         var coupon = new Coupon
         {
-            Id = Guid.NewGuid(),
+            Id = command.Id,
             Name = command.Name,
             Description = command.Description,
             Amount = command.Amount,

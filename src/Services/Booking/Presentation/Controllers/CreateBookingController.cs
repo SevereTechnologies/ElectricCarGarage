@@ -2,7 +2,7 @@
 
 namespace BookingGateway.Presentation.Controllers;
 
-public class CreateBookingEndpoints : ICarterModule
+public class CreateBookingEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {

@@ -2,7 +2,6 @@
 
 public class Booking
 {
-    public Guid Id { get; set; }
     public Guid CustomerId { get; set; }
     public string CustomerName { get; set; }
     public List<BookingService> Services { get; set; } = new();

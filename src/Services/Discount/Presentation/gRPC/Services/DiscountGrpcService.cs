@@ -75,8 +75,9 @@ public class DiscountGrpcService(IMediator mediator) : DiscountService.DiscountS
             throw new RpcException(new Status(StatusCode.InvalidArgument, "Invalid request."));
         }
 
-        // Map proto model to command model
+        // Map proto model to command model (Coupon.Id = the OfferId)
         var command = new CreateDiscountCommand(
+            Guid.Parse(request.Coupon.Id),
             request.Coupon.Name,
             request.Coupon.Description,
             request.Coupon.Amount);
